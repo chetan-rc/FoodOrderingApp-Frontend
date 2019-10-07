@@ -483,9 +483,8 @@ class Checkout extends Component {
 
 
     render() {
-        const { stepIndex, finished } = this.state;
-        const steps = 2;
-
+        const { finished } = this.state;
+        
         return (
             <div>
                 <Header
@@ -650,7 +649,7 @@ class Checkout extends Component {
                                     <span>
                                         <FormControl style={{ backgroundColor: 'rgb(241, 231, 211)' }}>
                                             <InputLabel htmlFor="Coupon">Coupon Code</InputLabel>
-                                            <Input id="couponCode" type="text" couponCode={this.state.couponCode} onChange={this.inputCouponCodeChangeHandler} />
+                                            <Input id="couponCode" type="text" couponcode={this.state.couponCode} onChange={this.inputCouponCodeChangeHandler} />
                                             <FormHelperText className={this.state.couponError}>
                                                 <span className="red">required</span>
                                             </FormHelperText>
