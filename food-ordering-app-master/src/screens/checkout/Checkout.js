@@ -47,10 +47,6 @@ const useStyles = makeStyles(theme => ({
     actionsContainer: {
         marginBottom: theme.spacing(2),
     },
-    resetContainer: {
-        padding: theme.spacing(3),
-        paddingLeft: '25px',
-    },
     gridList: {
         flexWrap: 'nowrap',
         // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
@@ -171,7 +167,6 @@ class Checkout extends Component {
             style: styleNew,
             styleIcon: styleIconnew
         });
-        console.log(this.state.address_id)
     }
 
 /* The below method is used to select an payment method. */
@@ -237,18 +232,14 @@ class Checkout extends Component {
     getStatesList = () => {
         let that = this;
         let url = `${constants.statesUrl}`;
-        console.log("In state get" + url);
         return fetch(url, {
             method: 'GET',
         }).then((response) => {
-
-            console.log("In state then" + JSON.stringify(response));
             return response.json();
         }).then((jsonResponse) => {
             that.setState({
                 statesList: jsonResponse.states
             });
-            console.log("val" + this.state.statesList);
         }).catch((error) => {
             console.log('error fetching States List', error);
         });
@@ -286,7 +277,7 @@ class Checkout extends Component {
         this.state.state_uuid === "" ? this.setState({ stateListRequired: "dispBlock" }) : this.setState({ stateListRequired: "dispNone" });
         this.state.pincode === "" ? this.setState({ pincodeRequired: "dispBlock" }) : this.setState({ pincodeRequired: "dispNone" });
 
-        if ((this.state.flatNo === "") || (this.state.locality === "") || (this.state.city === "") || (this.state.state_uuid === "") || (this.state.pincode === "")) { console.log("Exception"); return; }
+        if ((this.state.flatNo === "") || (this.state.locality === "") || (this.state.city === "") || (this.state.state_uuid === "") || (this.state.pincode === "")) { return; }
         
         var pinValidation = /^\d{6}$/;
 
@@ -317,7 +308,6 @@ class Checkout extends Component {
                 if (this.readyState === 4 && this.status === 201) {
                     that.setState({
                         saveAddress: true,
-                        snackOpen: true,
                         snackOpen: true,
                         snackMessage: "Address saved successfully"
                     });
@@ -355,7 +345,6 @@ class Checkout extends Component {
     applyCouponCodeClickHandler = () => {
         let value = this.state.couponCode;
         if (value !== null || value !== "") {
-            let that = this;
             let url = `${constants.couponUrl}/${value}`;
             return fetch(url, {
                 method: 'GET',
@@ -365,7 +354,7 @@ class Checkout extends Component {
             }).then((response) => {
                 return response.json();
             }).then((jsonResponse) => {
-                if (jsonResponse.percent == null || jsonResponse.percent == "") {
+                if (jsonResponse.percent === null || jsonResponse.percent === "") {
                     this.setState({
                         snackMessage: "No coupon with the given name",
                         snackOpen: true,
@@ -455,8 +444,7 @@ class Checkout extends Component {
         });
 
         let url = `${constants.orderUrl}`;
-        console.log("In xhrSaveOrder post" + url);
-
+        
         xhrSaveOrder.open("POST", url);
         xhrSaveOrder.setRequestHeader("authorization", "Bearer " + sessionStorage.getItem("access-token"));
         xhrSaveOrder.setRequestHeader("Content-Type", "application/json");
@@ -491,11 +479,6 @@ class Checkout extends Component {
 
     render() {
         const { stepIndex, finished } = this.state;
-        const { state_items_list } = this.props.location.state.items_list_new;
-        console.log("props state_items_list" + state_items_list);
-        console.log("part3 page props" + JSON.stringify(this.props.location.state.items_list_new));
-        console.log(JSON.stringify(this.props.location.state.total));
-        console.log("const" + { stepIndex });
         const steps = 2;
 
         return (
