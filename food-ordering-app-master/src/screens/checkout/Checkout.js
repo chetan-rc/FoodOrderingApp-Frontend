@@ -245,6 +245,7 @@ class Checkout extends Component {
         });
     }
 
+/* The below method is used to get all the addresses of the logged in user from the database. */
     getExistingAddress = () => {
         let that = this;
         let url = `${constants.addressUrl}`;
@@ -270,6 +271,7 @@ class Checkout extends Component {
         });
     }
 
+/* The below method is used to save an address for the logged in user. */
     saveAddressClickHandler = () => {
         this.state.flatNo === "" ? this.setState({ flatNoRequired: "dispBlock" }) : this.setState({ flatNoRequired: "dispNone" });
         this.state.locality === "" ? this.setState({ localityRequired: "dispBlock" }) : this.setState({ localityRequired: "dispNone" });
@@ -342,6 +344,7 @@ class Checkout extends Component {
         }
     }
 
+/* The below method is used to apply a coupon when the APPLY button is clicked. */
     applyCouponCodeClickHandler = () => {
         let value = this.state.couponCode;
         if (value !== null || value !== "") {
@@ -390,6 +393,7 @@ class Checkout extends Component {
         }
     }
 
+/* The below method is used to place an order when the PLACE ORDER button is clicked. */
     onPlaceOrderClickHandler = () => {
 
         let item_quantities = []
@@ -453,6 +457,7 @@ class Checkout extends Component {
         xhrSaveOrder.send(saveOrderData);
     }
 
+/* The below method is used to render the step action for the Stepper. */
     renderStepActions(step) {
         return (
             <div style={{ margin: '12px 0' }}>
