@@ -142,17 +142,17 @@ class Checkout extends Component {
         this.setState({ city: e.target.value });
     }
 
-/* The below method is used to set the state variable on change of the Locality input. */
+    /* The below method is used to set the state variable on change of the Locality input. */
     inputLocalityChangeHandler = (e) => {
         this.setState({ locality: e.target.value });
     }
 
-/* The below method is used to set the state variable on change of the Coupon input. */
+    /* The below method is used to set the state variable on change of the Coupon input. */
     inputCouponCodeChangeHandler = (e) => {
         this.setState({ couponCode: e.target.value });
     }
 
-/* The below method is used to select an address from the GridList present inside EXISTING ADDRESS tab. */
+    /* The below method is used to select an address from the GridList present inside EXISTING ADDRESS tab. */
     addressClickHandler = (addressId) => {
         let styleNew = {
             border: "outset",
@@ -169,12 +169,12 @@ class Checkout extends Component {
         });
     }
 
-/* The below method is used to select an payment method. */
+    /* The below method is used to select an payment method. */
     paymentMethodChangeHandler = (e) => {
         this.setState({ payment_id: e.target.value });
     };
 
-/* The below method is used to move to the next Step in the Stepper. */
+    /* The below method is used to move to the next Step in the Stepper. */
     handleNext = () => {
         if (this.state.address_id !== "" && this.state.address_id !== null) {
             let newstepIndex = this.state.stepIndex + 1;
@@ -185,7 +185,7 @@ class Checkout extends Component {
         }
     };
 
-/* The below method is used to move to the previous Step in the Stepper. */
+    /* The below method is used to move to the previous Step in the Stepper. */
     handlePrev = () => {
         const { stepIndex } = this.state;
         if (stepIndex > 0) {
@@ -193,7 +193,7 @@ class Checkout extends Component {
         }
     };
 
-/* The below methos is used to reset the active step index value in the Stepper. */
+    /* The below methos is used to reset the active step index value in the Stepper. */
     handleReset = () => {
         const { stepIndex } = this.state;
         if (stepIndex > 0) {
@@ -201,7 +201,7 @@ class Checkout extends Component {
         }
     };
 
-/* The below method is used to close the SnackBar. */
+    /* The below method is used to close the SnackBar. */
     handleClose = () => {
 
         this.setState({
@@ -210,7 +210,7 @@ class Checkout extends Component {
         })
     };
 
-/* The below method is used to get all the payment methods from the database. */
+    /* The below method is used to get all the payment methods from the database. */
     getPaymentMethods = () => {
 
         let that = this;
@@ -228,7 +228,7 @@ class Checkout extends Component {
         });
     }
 
-/* The below method is used to get all the states from the database. */
+    /* The below method is used to get all the states from the database. */
     getStatesList = () => {
         let that = this;
         let url = `${constants.statesUrl}`;
@@ -278,7 +278,7 @@ class Checkout extends Component {
         this.state.pincode === "" ? this.setState({ pincodeRequired: "dispBlock" }) : this.setState({ pincodeRequired: "dispNone" });
 
         if ((this.state.flatNo === "") || (this.state.locality === "") || (this.state.city === "") || (this.state.state_uuid === "") || (this.state.pincode === "")) { return; }
-        
+
         var pinValidation = /^\d{6}$/;
 
         if (pinValidation.test(String(this.state.pincode)) === false) {
@@ -332,7 +332,7 @@ class Checkout extends Component {
             });
 
             let url = `${constants.saveAddressUrl}`;
-            
+
             xhrSaveAddress.open("POST", url);
             xhrSaveAddress.setRequestHeader("authorization", "Bearer " + sessionStorage.getItem("access-token"));
             xhrSaveAddress.setRequestHeader("Content-Type", "application/json");
@@ -391,7 +391,7 @@ class Checkout extends Component {
     }
 
     onPlaceOrderClickHandler = () => {
-        
+
         let item_quantities = []
         if (this.props.location.state.items_list_new.length > 0) {
             this.props.location.state.items_list_new.forEach(function (item, index) {
@@ -444,7 +444,7 @@ class Checkout extends Component {
         });
 
         let url = `${constants.orderUrl}`;
-        
+
         xhrSaveOrder.open("POST", url);
         xhrSaveOrder.setRequestHeader("authorization", "Bearer " + sessionStorage.getItem("access-token"));
         xhrSaveOrder.setRequestHeader("Content-Type", "application/json");
